@@ -1,5 +1,14 @@
 # Detector de Padrões de Projeto via Gemini 2 Flash
 
+
+Alunos:
+ - Wesley Miranda
+ - Clóvis Machado
+ - Leandro Manga
+ - Luan Alves
+
+
+
 Identifica automaticamente se um trecho de código implementa **Adapter**, **Singleton**, **Composite**, **Observer** ou **Iterator** usando o modelo **Gemini 2 Flash** da Google AI.
 
 ---
