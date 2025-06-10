@@ -1,0 +1,52 @@
+class EventSource {
+  constructor() {
+    this.listeners = [];
+  }
+
+  onChange(listener) {
+    this.listeners.push(listener);
+  }
+
+  remove(listener) {
+    this.listeners = this.listeners.filter(l => l !== listener);
+  }
+
+  trigger(eventData) {
+    for (const fn of this.listeners) {
+      fn(eventData);
+    }
+  }
+}
+
+class Logger {
+  constructor(label) {
+    this.label = label;
+  }
+
+  log(data) {
+    console.log(`[${this.label}] recebeu: ${data}`);
+  }
+}
+
+// Exemplo prático:
+const source = new EventSource();
+
+const a = new Logger("A");
+const b = new Logger("B");
+
+// Conecta os "ouvintes"
+source.onChange((data) => a.log(data));
+source.onChange((data) => b.log(data));
+
+// Dispara eventos
+source.trigger("Primeira atualização");
+
+// Remove um
+source.remove((data) => a.log(data)); // <- essa função é diferente da original!
+
+// Correção: manter referência para poder remover corretamente
+const callbackA = (data) => a.log(data);
+source.onChange(callbackA);
+source.remove(callbackA);
+
+source.trigger("Segunda atualização");
